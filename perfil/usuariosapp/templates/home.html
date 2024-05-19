@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h2>Posts Recientes</h2>
+            <hr>
+            {% if user.is_authenticated %}
+                <div class="text-center">
+                    <p>¡Hola, {{ user.username }}!</p>
+                    {% if user.userprofile.profile_picture %}
+                        <img src="{{ user.userprofile.profile_picture.url }}" alt="Imagen de perfil" class="img-fluid rounded-circle" style="max-width: 100px;">
+                    {% else %}
+                        <p>No has subido una imagen de perfil todavía.</p>
+                    {% endif %}
+                    <a href="{% url 'logout' %}" class="btn btn-light mt-3">Cerrar sesión</a>
+                </div>
+            {% else %}
+                <div class="text-center">
+                    <p>Inicia sesión para ver tu perfil.</p>
+                    <a href="{% url 'login' %}" class="btn btn-light mt-3">Iniciar sesión</a>
+                </div>
+            {% endif %}
+            <hr>
+            <div class="row">
+                {% for post in posts %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text">{{ post.description }}</p>
+                                <a href="{% url 'post_detail' post_id=post.id %}" class="btn ">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

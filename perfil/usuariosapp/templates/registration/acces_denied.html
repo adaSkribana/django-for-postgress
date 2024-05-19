@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Acceso Denegado</h2>
+  <p>No tienes acceso a esta página.</p>
+  <a href="{% url 'login' %}" class="btn ">Iniciar Sesión</a>
+  <a href="{% url 'signup' %}" class="btn ">Registrarse</a>
+{% endblock %}
